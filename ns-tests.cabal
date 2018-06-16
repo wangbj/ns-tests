@@ -1,0 +1,78 @@
+-- This file has been generated from package.yaml by hpack version 0.28.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 0d817f028eee8f0b955a0f3f3edc2dfddba5fc3a77bbb5e7d1947c9a8582439f
+
+name:           ns-tests
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/wangbj/ns-tests#readme>
+homepage:       https://github.com/wangbj/ns-tests#readme
+bug-reports:    https://github.com/wangbj/ns-tests/issues
+author:         Baojun Wang
+maintainer:     wangb@gmail.com
+copyright:      2018 Baojun Wang
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+tested-with:
+    GHC == 8.4.3
+  , GHC == 8.2.2
+
+extra-source-files:
+    ChangeLog.md
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/wangbj/ns-tests
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_ns_tests
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , unix >= 2.7
+    , bytestring >= 0.10
+    , linux-namespaces >= 0.1.2
+    , hspec >= 2.5
+    , QuickCheck >= 2.11
+  default-language: Haskell2010
+
+executable ns-tests-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_ns_tests
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , unix >= 2.7
+    , bytestring >= 0.10
+    , linux-namespaces >= 0.1.2
+    , ns-tests
+  default-language: Haskell2010
+
+test-suite ns-tests-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_ns_tests
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , unix >= 2.7
+    , hspec >= 2.5
+    , QuickCheck >= 2.11
+    , bytestring >= 0.10
+    , linux-namespaces >= 0.1.2
+    , ns-tests
+  default-language: Haskell2010
