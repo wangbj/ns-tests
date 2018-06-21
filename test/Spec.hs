@@ -13,19 +13,19 @@ runChild = hspec $ do
     it "first process pid must be 1" $ do
       getProcessID `shouldReturn` 1
 
-exitedNormally :: ProcessID -> IO Bool
+exitedNormally :: ProcessID -> IO ()
 exitedNormally pid = getProcessStatus True True pid >>= \case
     Nothing -> throwIO (userError "getProcessStatus")
-    Just (Exited _) -> return True
+    Just (Exited _) -> return ()
     Just (Terminated sig _) -> throwIO (userError ("child terminated by signal: " ++ show sig))
     Just (Stopped sig)      -> throwIO (userError ("child stopped by signal: " ++ show sig))
 
 getPidNs = hspec $ do
   describe "create new PID name space" $ do
     it "child must exit normally" $ do
-      unshare [PID]
+      unshare [PID, User]
       pid <- forkProcess runChild
-      exitedNormally pid `shouldReturn` True
+      exitedNormally pid `shouldReturn` ()
 
 namespaceSanityTest = hspec $ do
   describe "linux name space sanity tests.." $ do
